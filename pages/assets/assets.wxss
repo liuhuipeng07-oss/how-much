@@ -1,0 +1,170 @@
+.asset-summary {
+  padding: 30rpx;
+  background: #fff2b7;
+}
+
+.summary-label {
+  color: var(--muted);
+  font-size: 22rpx;
+}
+
+.summary-value {
+  margin-top: 8rpx;
+  font-size: 52rpx;
+  font-weight: 900;
+}
+
+.summary-tip {
+  margin-top: 12rpx;
+  color: var(--muted);
+  font-size: 20rpx;
+}
+
+.filter-scroll {
+  width: calc(100% + 48rpx);
+  margin: 30rpx 0 20rpx -24rpx;
+}
+
+.record-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12rpx;
+  margin-top: 26rpx;
+}
+
+.record-tab {
+  padding: 16rpx;
+  background: var(--paper);
+  border: 4rpx solid var(--ink);
+  text-align: center;
+  font-size: 22rpx;
+}
+
+.record-tab.active {
+  color: #fff;
+  background: var(--green);
+}
+
+.filter-list {
+  display: flex;
+  gap: 12rpx;
+  width: max-content;
+  padding: 0 24rpx 10rpx;
+}
+
+.filter-chip {
+  padding: 12rpx 22rpx;
+  background: var(--paper);
+  border: 4rpx solid var(--ink);
+  border-radius: 4rpx;
+  font-size: 22rpx;
+}
+
+.filter-chip.active {
+  color: #fff;
+  background: var(--green);
+  box-shadow: 4rpx 4rpx 0 var(--ink);
+}
+
+.asset-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.asset-feedback {
+  margin: 12rpx 0 18rpx;
+  padding: 14rpx 18rpx;
+  color: #fffaf0;
+  background: var(--green);
+  border: 4rpx solid var(--ink);
+  font-size: 19rpx;
+  animation: feedback-slide 220ms steps(3, end);
+}
+
+.asset-row {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+}
+
+.asset-row.equipment-flash {
+  animation: equipment-flash 620ms steps(5, end);
+}
+
+.asset-icon:active {
+  transform: rotate(-5deg) scale(0.94);
+}
+
+@keyframes feedback-slide {
+  from { opacity: 0; transform: translateY(-10rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes equipment-flash {
+  0%, 100% { background: var(--paper); }
+  50% { background: #fff2b7; transform: translateX(5rpx); }
+}
+
+.asset-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 78rpx;
+  height: 78rpx;
+  background: #e4edcf;
+  border: 4rpx solid var(--ink);
+  flex-direction: column;
+  font-size: 32rpx;
+}
+
+.asset-icon.equipped {
+  background: #fff2b7;
+  box-shadow: 4rpx 4rpx 0 var(--green);
+}
+
+.equip-mark {
+  margin-top: 2rpx;
+  font-size: 12rpx;
+}
+
+.asset-main {
+  flex: 1;
+  min-width: 0;
+  margin-left: 18rpx;
+}
+
+.asset-name {
+  overflow: hidden;
+  font-size: 25rpx;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.asset-meta {
+  margin-top: 8rpx;
+  color: var(--muted);
+  font-size: 19rpx;
+}
+
+.asset-price {
+  margin-left: 12rpx;
+  text-align: right;
+  font-size: 20rpx;
+}
+
+button.row-action { margin-left: 12rpx; }
+
+.asset-value {
+  margin-bottom: 8rpx;
+  color: var(--ink);
+  font-size: 25rpx;
+  font-weight: 700;
+}
+
+button.bottom-action {
+  margin-top: 30rpx;
+}
+.asset-holding { flex: 1 0 100%; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8rpx 16rpx; padding-top: 14rpx; border-top: 2rpx dashed #526057; color: var(--muted); font-size: 20rpx; }
+.holding-amount { color: var(--gold); font-size: 23rpx; font-weight: 700; }

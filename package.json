@@ -1,0 +1,10 @@
+{
+  "name": "value-how-much-miniprogram",
+  "version": "0.5.0",
+  "private": true,
+  "description": "值多少？像素风个人资产微信小程序原型",
+  "scripts": {
+    "test": "node tests/portfolio.test.js && node tests/lifecycle.test.js && node tests/lifecycle-pages.test.js && node tests/ui-regression.test.js && node tests/holding.test.js",
+    "check": "node tests/project-check.js"
+  }
+}

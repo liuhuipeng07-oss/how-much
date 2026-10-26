@@ -1,0 +1,63 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/world/world",
+    "pages/assets/assets",
+    "pages/market/market",
+    "pages/future/future",
+    "pages/profile/profile",
+    "pages/add-asset/add-asset",
+    "pages/add-income/add-income",
+    "pages/wishes/wishes",
+    "pages/add-wish/add-wish",
+    "pages/wish-detail/wish-detail",
+    "pages/idle/idle"
+  ],
+  "window": {
+    "navigationBarTitleText": "值多少？",
+    "navigationBarBackgroundColor": "#142125",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#142125",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#b8c2b8",
+    "selectedColor": "#f1cd7b",
+    "backgroundColor": "#1d2c2e",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "assets/icons/nav-home-default.png",
+        "selectedIconPath": "assets/icons/nav-home-selected.png"
+      },
+      {
+        "pagePath": "pages/world/world",
+        "text": "世界",
+        "iconPath": "assets/icons/nav-world-default.png",
+        "selectedIconPath": "assets/icons/nav-world-selected.png"
+      },
+      {
+        "pagePath": "pages/assets/assets",
+        "text": "资产",
+        "iconPath": "assets/icons/nav-assets-default.png",
+        "selectedIconPath": "assets/icons/nav-assets-selected.png"
+      },
+      {
+        "pagePath": "pages/future/future",
+        "text": "成长",
+        "iconPath": "assets/icons/nav-growth-default.png",
+        "selectedIconPath": "assets/icons/nav-growth-selected.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "assets/icons/nav-profile-default.png",
+        "selectedIconPath": "assets/icons/nav-profile-selected.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

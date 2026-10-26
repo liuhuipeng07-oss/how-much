@@ -1,0 +1,41 @@
+<view class="page-shell">
+  <block wx:if="{{wish}}">
+    <view class="journey-banner pixel-card">
+      <view class="journey-kicker">WISH CARD · {{wish.createdAt}}</view>
+      <view class="journey-title title-with-icon"><image class="pixel-icon large" src="{{wish.icon}}" mode="aspectFit"/><text>{{wish.name}}</text></view>
+      <view class="journey-price">预算 ¥{{wish.budgetText}}</view>
+      <view class="journey-step"><text class="journey-tag">{{wish.statusText}}</text><text class="journey-tag demo" wx:if="{{wish.isDemo}}">示例卡</text></view>
+    </view>
+    <view class="journey-card pixel-card" style="margin-top: 26rpx;">
+      <view class="journey-label">为什么想买</view><view class="journey-reason">{{wish.reason}}</view>
+      <view class="journey-label" style="margin-top: 24rpx;">替代品</view><view class="journey-meta">{{wish.alternative || '暂时没有想到，也可以先等等。'}}</view>
+    </view>
+    <view class="section-title"><text>你觉得呢？</text><text class="journey-meta">{{votes.total}} 票 · 本地演示</text></view>
+    <view class="journey-notice">{{wish.isDemo ? '本卡包含预设示例票数；你的选择只保存在本机。' : '这张卡只记录本机选择，尚未连接好友投票。'}} 每次改选只保留最新一票。</view>
+    <view wx:for="{{votes.options}}" wx:key="key" class="vote-choice {{wish.myVote === item.key ? 'selected' : ''}} {{activeVote === item.key ? 'active' : ''}}" data-key="{{item.key}}" bindtap="vote">
+      <view class="vote-choice-head"><text>{{wish.myVote === item.key ? '✦ ' : ''}}{{item.label}}</text><text>{{item.count}} · {{item.percent}}%</text></view>
+      <view class="vote-track"><view class="vote-fill" style="width: {{item.percent}}%;"></view></view>
+    </view>
+    <view class="journey-meta" wx:if="{{wish.status !== 'open'}}">本轮投票已收起；未入库的愿望可以重新开启。</view>
+    <view class="journey-success" wx:if="{{success}}">{{success}}</view>
+    <view class="section-title"><text>最后，由我决定</text></view>
+    <block wx:if="{{wish.status === 'open' || wish.status === 'waiting'}}">
+      <view class="journey-form pixel-card">
+        <view class="journey-field"><view class="journey-label">已经买了？填写实际支付金额（元）</view><input class="journey-input" type="digit" value="{{actualPrice}}" bindinput="bindPrice" placeholder="不一定和预算一样"/></view>
+        <view class="journey-meta">确认后按此金额记录获得成本和初始估值。</view>
+        <view class="journey-actions"><button class="ui-button ui-primary" disabled="{{busy}}" bindtap="purchase"><image class="pixel-icon button-icon" src="/assets/icons/nav-assets-selected.png" mode="aspectFit"/>买了，加入资产</button></view>
+      </view>
+      <view class="journey-actions">
+        <button wx:if="{{wish.status === 'open'}}" class="ui-button ui-secondary" data-status="waiting" bindtap="decide">先等等</button>
+        <button class="ui-button ui-secondary" data-status="cancelled" bindtap="decide">这次不买</button>
+      </view>
+    </block>
+    <view class="journey-status pixel-card" wx:if="{{wish.status === 'purchased'}}">✦ 已经加入资产，去首页看看你的新配件。</view>
+    <button wx:if="{{wish.status === 'purchased'}}" class="ui-button ui-secondary journey-small-button" bindtap="openAssets">查看我的资产 →</button>
+    <button wx:if="{{wish.status === 'waiting' || wish.status === 'cancelled'}}" class="ui-button ui-secondary journey-small-button" data-status="open" bindtap="decide">重新问问大家 ↺</button>
+    <button class="ui-button ui-secondary journey-small-button" open-type="share"><image class="pixel-icon button-icon" src="/assets/icons/action-share.png" mode="aspectFit"/>分享愿望预览</button>
+    <view class="journey-footer">分享仅展示标题与预算，暂不能收集好友投票。<br/>愿望阶段不计入资产总值。</view>
+  </block>
+  <view class="journey-error" wx:if="{{error}}">{{error}}</view>
+  <button wx:if="{{!wish}}" class="ui-button ui-primary" bindtap="backToWishes">回到愿望背包</button>
+</view>

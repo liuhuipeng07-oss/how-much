@@ -1,0 +1,35 @@
+<view class="page-shell home-page">
+  <view class="home-safe-area" style="height: {{headerTop}}px;"></view>
+  <view class="home-header" style="padding-top: {{headerTop}}px;"><view><view class="brand">值多少？</view><view class="question">今天的你值多少？</view></view><view class="local-badge">本地档案 · v0.5</view></view>
+  <view class="character-stage pixel-card">
+    <view class="character-scene" bindtap="interactCharacter">
+      <image class="landscape" src="/assets/scene/home-landscape-v1.png" mode="aspectFill"/>
+      <view class="character-level">LV.{{summary.level}} · {{character.title}}</view><view class="character-energy"><image class="pixel-icon small" src="/assets/icons/action-energy.png"/> {{interaction.energy}}</view>
+      <view class="character-bubble">{{interaction.mood || '点击我，开始今天的冒险'}}</view>
+      <image class="character-sprite {{isCharacterActive ? 'active' : ''}}" src="{{characterSprite}}" mode="aspectFit"/>
+      <image wx:if="{{sceneVehicle}}" class="scene-vehicle" src="/assets/icons/category-vehicle.png" mode="aspectFit"/>
+      <image wx:if="{{scenePet}}" class="scene-pet" src="/assets/icons/category-pet.png" mode="aspectFit"/>
+      <view wx:if="{{coinBurst}}" class="coin-burst"><image class="pixel-icon" src="/assets/icons/category-cash.png"/></view>
+      <view class="scene-caption">{{character.nickname}}的像素小世界</view>
+    </view>
+    <view class="character-footer"><view class="character-identity"><view class="character-name">{{character.nickname}}</view><view class="character-meta">{{character.age}}岁 · {{character.occupation}} · {{character.city}}</view></view><button class="ui-button ui-secondary ui-small checkin-button" bindtap="checkIn">{{interaction.checkedInToday ? '今日已签到' : '领取今日补给'}}</button></view>
+    <scroll-view class="equipment-scroll" scroll-x show-scrollbar="{{false}}"><view class="equipment-strip"><view class="equipment-slot" wx:for="{{equipment}}" wx:key="id" data-id="{{item.id}}" bindtap="openEquipment"><image class="pixel-icon" src="{{item.icon}}" mode="aspectFit"/><text>{{item.name}}</text></view><view wx:if="{{!equipment.length}}" class="equipment-empty">添加资产并开启展示，装备就会出现在这里。</view></view></scroll-view>
+  </view>
+  <view class="summary-card pixel-card">
+    <view class="summary-heading"><text>我的总资产价值</text><button class="ui-button ui-secondary ui-icon privacy-toggle" aria-label="{{amountHidden ? '显示首页金额' : '隐藏首页金额'}}" bindtap="toggleAmount">{{amountHidden ? '显示' : '隐藏'}}</button></view>
+    <view class="summary-total">{{amountHidden ? '¥ ······' : '¥ ' + summary.totalText}}</view>
+    <view class="summary-change {{summary.dailyChange >= 0 ? 'amount-positive' : 'amount-negative'}}">今日变化 {{amountHidden ? '······' : summary.dailyText + '  ' + summary.dailyRateText}}</view>
+    <view class="summary-caption">{{summary.count}} 件资产 · 手动估值 · 不含未来工资</view>
+    <button class="ui-button ui-primary add-button" bindtap="addAsset"><image class="pixel-icon button-icon" src="/assets/icons/action-add.png"/>添加资产</button>
+  </view>
+  <view class="section-title"><view class="title-with-icon"><image class="pixel-icon" src="/assets/icons/action-weather.png"/><text>财富天气</text></view><text class="link" bindtap="openMarket">查看波动 →</text></view>
+  <view class="group-list pixel-card"><view class="group-row" wx:for="{{weatherMovers}}" wx:key="category" bindtap="openMarket"><image class="pixel-icon group-icon" src="{{item.icon}}"/><view class="group-main"><view class="group-name">{{item.scene}}</view><view class="group-count">{{item.count}} 件资产</view></view><view class="group-value {{item.dailyChange >= 0 ? 'amount-positive' : 'amount-negative'}}">{{amountHidden ? '····' : item.changeText}}</view></view><view class="empty-state" wx:if="{{!weatherMovers.length}}">今天风平浪静，暂未记录估值变化。</view></view>
+  <view class="section-title"><text>拥有的下一步</text><text class="section-caption">先想清楚，再做决定</text></view>
+  <view class="lifecycle-entries"><view class="lifecycle-entry pixel-card" bindtap="openWishes"><image class="pixel-icon entry-icon" src="/assets/icons/action-wish.png"/><view class="entry-title">买前问问 →</view><view class="entry-copy">{{wishCount}} 个愿望待决定</view></view><view class="lifecycle-entry idle-entry pixel-card" bindtap="openIdle"><image class="pixel-icon entry-icon" src="/assets/icons/action-idle.png"/><view class="entry-title">闲置背包 →</view><view class="entry-copy">{{idleCount}} 件物品待整理</view></view></view>
+  <view class="quick-actions"><button class="ui-button ui-secondary ui-small quick-action" bindtap="addIncome"><image class="pixel-icon" src="/assets/icons/action-income.png"/><text>记录收入</text></button><button class="ui-button ui-secondary ui-small quick-action" bindtap="openAssets"><image class="pixel-icon" src="/assets/icons/nav-assets-selected.png"/><text>我的装备</text></button><button class="ui-button ui-secondary ui-small quick-action" bindtap="openProfile"><image class="pixel-icon" src="/assets/icons/nav-profile-selected.png"/><text>角色换装</text></button></view>
+  <view class="section-title"><text>资产构成</text><text class="link" bindtap="openAssets">全部 {{summary.count}} 件 →</text></view>
+  <view class="group-list pixel-card"><view class="group-row" wx:for="{{worldTiles}}" wx:key="category"><image class="pixel-icon group-icon" src="{{item.icon}}"/><view class="group-main"><view class="group-name">{{item.scene}}</view><view class="allocation-track"><view style="width: {{item.percent}}%; background: {{item.color}};"></view></view></view><view class="group-value">{{amountHidden ? '····' : item.valueText}}</view></view></view>
+  <view class="section-title"><text>成长记录</text></view>
+  <view class="stat-grid"><view class="stat-card pixel-card"><view class="stat-label">历史投入</view><view class="stat-value">{{amountHidden ? '······' : '¥' + summary.costText}}</view></view><view class="stat-card pixel-card"><view class="stat-label">估值与成本差额</view><view class="stat-value {{summary.profit >= 0 ? 'amount-positive' : 'amount-negative'}}">{{amountHidden ? '······' : summary.profitText}}</view></view></view>
+  <button class="ui-button ui-secondary share-button" open-type="share"><image class="pixel-icon button-icon" src="/assets/icons/action-share.png"/>分享我的角色名片</button><view class="page-note">金额只代表你记录的资产，不代表你的全部价值。</view>
+</view>

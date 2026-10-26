@@ -1,0 +1,33 @@
+<view class="page-shell">
+  <view class="journey-banner pixel-card">
+    <image class="journey-banner-icon" src="/assets/icons/action-idle.png" mode="aspectFit"/><view class="journey-kicker">NEXT CHAPTER · 闲置背包</view>
+    <view class="journey-title">旧物，下一站。</view><view class="journey-copy">曾经很喜欢的，也可以准备告别。<br/>整理一下，让背包轻一点。</view>
+  </view>
+  <view class="journey-notice">本机闲置展示 · 暂不公开发布，不提供支付、订单和联系买家。展示期间仍计入资产；确认已转出后才归档。</view>
+  <view class="journey-success" wx:if="{{success}}">{{success}}</view>
+  <view class="section-title"><text>从已有资产里挑一件</text></view>
+  <view class="journey-form pixel-card" wx:if="{{assets.length}}">
+    <view class="journey-field"><view class="journey-label">选择物品</view><picker range="{{assets}}" range-key="name" value="{{selectedIndex}}" bindchange="selectAsset"><view class="journey-picker">{{assets[selectedIndex].name}}　⌄</view></picker></view>
+    <view class="journey-field"><view class="journey-label">期望转让价（元）*</view><input class="journey-input" type="digit" value="{{askingPrice}}" placeholder="支持填写 0 元赠送" data-field="askingPrice" bindinput="bindField"/></view>
+    <view class="journey-field"><view class="journey-label">成色与使用情况 *</view><input class="journey-input" value="{{condition}}" maxlength="100" placeholder="例如：九成新，使用一年，功能正常" data-field="condition" bindinput="bindField"/></view>
+    <view class="journey-field"><view class="journey-label">给下一任主人的话（选填）</view><textarea class="journey-textarea" value="{{note}}" maxlength="300" placeholder="配件、瑕疵、想告别的原因……" data-field="note" bindinput="bindField"/></view>
+    <view class="journey-actions"><button class="ui-button ui-primary" disabled="{{busy}}" bindtap="saveListing"><image class="pixel-icon button-icon" src="/assets/icons/action-idle.png" mode="aspectFit"/>放进闲置背包</button></view>
+  </view>
+  <view class="empty-state pixel-card" wx:else>暂时没有可以新增展示的物品。<br/>这版支持数码、收藏和车辆。</view>
+  <view class="journey-error" wx:if="{{error}}">{{error}}</view>
+  <view class="journey-filters"><view class="journey-chip {{filter === 'listed' ? 'selected' : ''}}" data-key="listed" bindtap="selectFilter">正在展示</view><view class="journey-chip {{filter === 'all' ? 'selected' : ''}}" data-key="all" bindtap="selectFilter">全部记录</view></view>
+  <view class="journey-list">
+    <view class="journey-card pixel-card" wx:for="{{listings}}" wx:key="id">
+      <view class="journey-heading"><view class="journey-icon"><image class="pixel-icon" src="{{item.icon}}" mode="aspectFit"/></view><view class="journey-main"><view class="journey-name">{{item.name}}</view><view class="journey-meta">{{item.condition}}</view></view><text class="journey-tag">{{item.statusText}}</text></view>
+      <view class="journey-price">{{item.askingPrice === 0 ? '0 元赠送' : '期望 ¥' + item.askingText}}</view>
+      <view class="journey-reason" wx:if="{{item.note}}">{{item.note}}</view>
+      <view class="journey-meta" wx:if="{{item.unavailable}}">对应资产已归档，请先到资产页恢复再处理。</view>
+      <view class="journey-actions" wx:if="{{item.status === 'listed'}}">
+        <button class="ui-button ui-secondary" data-id="{{item.id}}" data-status="withdrawn" bindtap="changeStatus" disabled="{{busy}}">撤回</button>
+        <button class="ui-button ui-primary" data-id="{{item.id}}" data-status="transferred" bindtap="changeStatus" disabled="{{busy || item.assetArchived}}">已转出</button>
+      </view>
+    </view>
+  </view>
+  <view class="empty-state" wx:if="{{!listings.length}}">背包里还没有闲置，让每件物品都有自己的节奏。</view>
+  <button class="ui-button ui-secondary journey-small-button" bindtap="openAssets"><image class="pixel-icon button-icon" src="/assets/icons/nav-assets-selected.png" mode="aspectFit"/>回到我的资产 →</button>
+</view>

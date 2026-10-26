@@ -1,0 +1,114 @@
+<view class="page-shell">
+  <view class="profile-stage pixel-card {{appearanceActive ? 'active' : ''}}" bindtap="tapCharacter">
+    <image class="profile-landscape" src="/assets/scene/home-landscape-v1.png" mode="aspectFill"/>
+    <view class="stage-title">我的数字分身 · LV.{{card.level}}</view>
+    <view class="profile-spark spark-1" wx:if="{{appearanceActive}}">✦</view>
+    <view class="profile-spark spark-2" wx:if="{{appearanceActive}}">◆</view>
+    <view class="profile-spark spark-3" wx:if="{{appearanceActive}}">✦</view>
+    <image class="profile-sprite" src="{{characterSprite}}" mode="aspectFit"/>
+    <view class="profile-name">{{character.nickname}}</view>
+    <view class="profile-title">{{character.title}}</view>
+    <view class="profile-message">{{characterMessage}}</view>
+  </view>
+
+  <view class="section-title"><text>数字角色名片</text></view>
+  <view class="digital-card pixel-card">
+    <view class="card-head">
+      <view>
+        <view class="card-name">{{character.nickname}}</view>
+        <view class="card-meta">{{character.age || '未设置年龄'}} · {{character.occupation || '未设置职业'}} · {{character.city || '未设置城市'}}</view>
+      </view>
+      <view class="card-level">LV.{{card.level}}</view>
+    </view>
+    <view class="card-value">{{card.valueText}}</view>
+    <view class="card-count">{{card.assetCount}} 件资产档案 · {{card.categoryCount}} 类价值世界</view>
+    <view class="card-equipment">
+      <view class="card-equipment-item" wx:for="{{equipment}}" wx:key="id">
+        <image class="pixel-icon" src="{{item.icon}}" mode="aspectFit"/>
+        <view class="card-equipment-name">{{item.name}}</view>
+      </view>
+    </view>
+    <button class="ui-button ui-secondary card-share" open-type="share"><image class="pixel-icon button-icon" src="/assets/icons/action-share.png" mode="aspectFit"/>分享角色名片</button>
+  </view>
+
+  <view class="section-title"><text>角色名字</text></view>
+  <view class="name-card pixel-card">
+    <input value="{{character.nickname}}" maxlength="10" placeholder="给你的数字分身取名" bindinput="bindNickname" />
+  </view>
+
+  <view class="section-title"><text>基础身份</text></view>
+  <view class="identity-card pixel-card">
+    <view class="identity-field">
+      <text>年龄</text>
+      <input value="{{character.age}}" data-field="age" bindinput="bindCharacterField" placeholder="例如 35" />
+    </view>
+    <view class="identity-field">
+      <text>职业</text>
+      <input value="{{character.occupation}}" data-field="occupation" bindinput="bindCharacterField" placeholder="例如 创业者" />
+    </view>
+    <view class="identity-field">
+      <text>城市</text>
+      <input value="{{character.city}}" data-field="city" bindinput="bindCharacterField" placeholder="例如 厦门" />
+    </view>
+  </view>
+
+  <view class="section-title"><text>发色 · {{character.hair}}</text></view>
+  <view class="option-grid">
+    <view
+      wx:for="{{hairs}}"
+      wx:key="name"
+      class="option-card pixel-card {{character.hair === item.name ? 'selected' : ''}}"
+      data-name="{{item.name}}"
+      data-color="{{item.color}}"
+      bindtap="selectHair"
+    >
+      <image class="option-avatar" src="{{item.sprite}}" mode="aspectFit"/>
+      <view>{{item.name}}</view>
+    </view>
+  </view>
+
+  <view class="section-title"><text>服装 · {{character.outfit}}</text></view>
+  <view class="option-grid">
+    <view
+      wx:for="{{outfits}}"
+      wx:key="name"
+      class="option-card pixel-card {{character.outfit === item.name ? 'selected' : ''}}"
+      data-name="{{item.name}}"
+      data-color="{{item.color}}"
+      bindtap="selectOutfit"
+    >
+      <image class="option-avatar" src="{{item.sprite}}" mode="aspectFit"/>
+      <view>{{item.name}}</view>
+    </view>
+  </view>
+
+  <view class="section-title"><text>角色身边的资产配件</text></view>
+  <view class="equipment-manager pixel-card">
+    <view class="equipment-option" wx:for="{{equipmentOptions}}" wx:key="id">
+      <view class="equipment-option-icon"><image class="pixel-icon" src="{{item.icon}}" mode="aspectFit"/></view>
+      <view class="equipment-option-name">{{item.name}}</view>
+      <switch
+        checked="{{item.visible}}"
+        color="#305c46"
+        data-id="{{item.id}}"
+        bindchange="switchEquipment"
+      />
+    </view>
+  </view>
+
+  <view class="section-title"><text>名片隐私</text></view>
+  <view class="privacy-list">
+    <view
+      wx:for="{{privacyOptions}}"
+      wx:key="key"
+      class="privacy-option pixel-card {{privacyLevel === item.key ? 'selected' : ''}}"
+      data-key="{{item.key}}"
+      bindtap="selectPrivacy"
+    >
+      <view class="privacy-title">{{item.label}}</view>
+      <view class="privacy-desc">{{item.desc}}</view>
+    </view>
+  </view>
+
+  <button class="ui-button ui-primary save-profile" bindtap="saveCharacter">保存我的数字形象</button>
+</view>

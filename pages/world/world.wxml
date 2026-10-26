@@ -1,0 +1,55 @@
+<view class="page-shell">
+  <view class="world-overview pixel-card">
+    <view class="overview-title">我的资产世界</view>
+    <view class="overview-copy">每一类资产对应一个世界区域；这里仅用于统计和展示。</view>
+    <view class="world-stats">
+      <view class="world-stat">
+        <text class="world-stat-value">{{stats.regions}}</text>
+        <text class="world-stat-label">已开放区域</text>
+      </view>
+      <view class="world-stat">
+        <text class="world-stat-value">{{stats.equipped}}</text>
+        <text class="world-stat-label">展示中配件</text>
+      </view>
+      <view class="world-stat">
+        <text class="world-stat-value">{{stats.prosperity}}</text>
+        <text class="world-stat-label">世界繁荣度</text>
+      </view>
+    </view>
+    <view class="prosperity-track">
+      <view class="prosperity-fill" style="width: {{stats.prosperity}}%;"></view>
+    </view>
+    <view class="world-message">{{explorationMessage}}</view>
+    <button class="ui-button ui-primary explore-button {{isExploring ? 'active' : ''}}" bindtap="exploreWorld"><image class="pixel-icon button-icon" src="/assets/icons/nav-world-selected.png" mode="aspectFit"/>探索当前区域</button>
+  </view>
+
+  <view class="section-title"><text>世界区域</text></view>
+  <view class="region-grid">
+    <view
+      wx:for="{{groups}}"
+      wx:key="category"
+      class="region-card pixel-card {{selectedCategory === item.category ? 'selected' : ''}}"
+      data-category="{{item.category}}"
+      bindtap="selectGroup"
+    >
+      <view class="region-icon"><image class="pixel-icon large" src="{{item.icon}}" mode="aspectFit"/></view>
+      <view class="region-name">{{item.scene}}</view>
+      <view class="region-meta">{{item.count}} 件 · {{item.percentText}}</view>
+      <view class="region-value">{{item.valueText}}</view>
+    </view>
+  </view>
+
+  <view class="section-title"><text>{{selectedTitle}}</text></view>
+  <view class="asset-list">
+    <view class="world-asset pixel-card {{highlightedAssetId === item.id ? 'discovered' : ''}}" wx:for="{{selectedAssets}}" wx:key="id" data-id="{{item.id}}" bindtap="openAsset">
+      <view class="world-asset-icon"><image class="pixel-icon" src="{{item.icon}}" mode="aspectFit"/></view>
+      <view class="world-asset-main">
+        <view class="world-asset-name">{{item.name}}</view>
+        <view class="world-asset-state">{{item.visible ? '显示在人物／世界中' : '仅统计，不展示装备'}}</view>
+      </view>
+      <view class="world-asset-value">{{item.valueText}}</view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{selectedAssets.length === 0}}">这个区域还没有资产档案。</view>
+</view>

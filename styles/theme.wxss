@@ -1,0 +1,62 @@
+/* Native RPG palette and shared layout safeguards across all twelve pages. */
+page .page-shell { line-height: 1.55; }
+page .section-title { color: #f1cd7b; line-height: 1.5; }
+page .page-note { margin: 28rpx 8rpx 0; color: #b8c2b8; font-size: 21rpx; line-height: 1.7; text-align: center; }
+page .title-with-icon { min-width: 0; }
+page .title-with-icon .pixel-icon { flex-shrink: 0; }
+page .input, page .field-input, page .picker-value, page .journey-input, page .journey-textarea, page .journey-picker, page .control-input-wrap, page .name-card input, page .identity-field input { background: #18272a; color: #f1eedf; border-color: #637066; min-width: 0; }
+page input { caret-color: #f1cd7b; }
+page .intro, page .asset-summary, page .digital-card, page .world-overview, page .future-hero, page .weather-card.sunny, page .weather-card.rainy, page .journey-banner { background: #2b3e39; }
+page .journey-notice, page .journey-status { background: #3c3f2c; color: #f3dfab; border-color: #bda369; }
+page .journey-kicker, page .intro-status, page .world-message, page .live, page .income-link { color: #c8dfa7; }
+page .journey-stat, page .world-stat { background: #1b2b2e; }
+page .journey-tag { background: #345139; color: #dcefc6; }
+page .journey-tag.demo { background: #4a4230; color: #f0d49d; border-color: #a28b55; }
+page .journey-card:active, page .mover-row.active, page .world-asset.discovered { background: #354a40; }
+page .journey-votes > view { background: #18292a; color: #dde3d3; }
+page .journey-success { background: #304c39; color: #e3efd9; }
+page .journey-chip, page .filter-chip, page .record-tab, page .choice { box-sizing: border-box; min-height: 76rpx; padding: 16rpx 22rpx; border: 2rpx solid #647064; border-radius: 4rpx; background: #203033; color: #e3e9dc; font-size: 24rpx; line-height: 1.7; }
+page .journey-chip.selected, page .filter-chip.active, page .record-tab.active, page .choice.active, page .choice.selected { background: #415b3d; border-color: #e2c378; color: #f6e4b5; }
+page .category-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16rpx; }
+page .category-item { min-height: 132rpx; padding: 16rpx 6rpx; border: 2rpx solid #637064; background: #203033; font-size: 23rpx; border-radius: 4rpx; }
+page .category-item.selected, page .mode-card.active, page .option-card.selected, page .privacy-option.selected, page .scenario.selected, page .region-card.selected, page .vote-choice.selected { background: #3b513b; border-color: #e2c378; box-shadow: 4rpx 4rpx 0 #0d171a; }
+page .category-icon { margin-bottom: 12rpx; }
+page .intro-icon { flex-shrink: 0; }
+page .intro > view:last-child, page .equip-row > view:first-child, page .control-row > view:first-child { flex: 1; min-width: 0; }
+page .intro-subtitle, page .equip-text, page .mode-text { font-size: 23rpx; line-height: 1.7; }
+page .equip-row { gap: 16rpx; }
+page .equip-row switch { flex-shrink: 0; }
+page .form-title { color: #f1cd7b; font-size: 28rpx; }
+page .label { font-size: 24rpx; }
+page .input { height: 88rpx; font-size: 28rpx; }
+page .mode-text { min-height: 60rpx; }
+page .mode-card.unavailable { opacity: .62; }
+page .asset-icon, page .journey-icon, page .equipment-option-icon { background: #18272a; border-color: #627064; flex-shrink: 0; }
+page .asset-icon.equipped { background: #374c37; border-color: #c5b475; }
+page .asset-value, page .world-asset-value { color: #f3dfab; }
+page .record-tabs { gap: 14rpx; }
+page .asset-row { flex-wrap: wrap; gap: 12rpx; padding: 22rpx 18rpx; }
+page .asset-main { flex: 1 1 40%; margin-left: 0; }
+page .asset-price { flex: 0 1 auto; margin-left: auto; max-width: 46%; }
+page .asset-meta { line-height: 1.6; font-size: 21rpx; }
+page .asset-icon { width: 88rpx; height: 88rpx; }
+page .asset-name { font-size: 27rpx; }
+page .region-value, page .future-value, page .card-value { color: #f1cd7b; }
+page .region-card, page .scenario { min-width: 0; }
+page .region-value { overflow-wrap: anywhere; }
+page .world-stat { border-color: #647064; }
+page .column-value { color: #f1e4ba; background: #2d4339; }
+page .rate-box.up { background: #34533d; color: #c0e5a6; }
+page .rate-box.down { background: #593b36; color: #ffc0a8; }
+page .insight-card { background: #2c4039; color: #e1e9d9; }
+page .weather-title { font-size: 40rpx; }
+page .control-input-wrap { width: 210rpx; min-width: 0; flex-shrink: 0; }
+page .control-row { gap: 16rpx; }
+page .control-hint { font-size: 21rpx; line-height: 1.6; }
+page .identity-field { gap: 18rpx; }
+page .option-card, page .privacy-option { min-width: 0; }
+page .option-card { font-size: 24rpx; }
+page .card-level { background: #415b3d; color: #f1dfb0; }
+page .income-row { flex-wrap: wrap; row-gap: 12rpx; }
+page .income-name { font-size: 26rpx; overflow-wrap: anywhere; }
+page .income-meta { font-size: 21rpx; }

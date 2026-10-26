@@ -1,0 +1,34 @@
+/* Shared button geometry; page classes only control placement. */
+button.ui-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 88rpx;
+  height: auto;
+  margin: 0;
+  padding: 18rpx 24rpx;
+  border: 4rpx solid var(--ink);
+  border-radius: 6rpx;
+  font-family: inherit;
+  font-size: 28rpx;
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: center;
+  white-space: normal;
+  word-break: break-word;
+  box-shadow: 4rpx 4rpx 0 var(--ink);
+}
+button.ui-button::after { border: 0; }
+button.ui-primary { color: #282c23; background: #efc765; border-color: #7b633b; box-shadow: 4rpx 4rpx 0 #0d171a, inset 0 3rpx 0 #ffe6a3; }
+button.ui-secondary { color: #e8dfbd; background: #30423b; border-color: #77816b; }
+button.ui-small { min-height: 72rpx; padding: 12rpx 18rpx; font-size: 22rpx; }
+button.ui-icon { flex: 0 0 72rpx; width: 72rpx; min-width: 72rpx; min-height: 72rpx; padding: 12rpx; }
+button.ui-danger { color: var(--red); }
+button.ui-button:active { transform: translate(3rpx, 3rpx); box-shadow: 1rpx 1rpx 0 var(--ink); }
+button.ui-button[disabled] { color: #a5afa2; background: #303c39; border-color: #556258; box-shadow: none; transform: none; animation: none; }
+button.ui-button .button-icon { flex-shrink: 0; margin: 0; background: transparent; }

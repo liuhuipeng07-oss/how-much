@@ -1,0 +1,64 @@
+<view class="page-shell">
+  <view class="weather-card pixel-card {{weather.className}} {{weatherActive ? 'weather-active' : ''}}" bindtap="playWeather">
+    <view class="weather-pixel pixel-a" wx:if="{{weatherActive}}">✦</view>
+    <view class="weather-pixel pixel-b" wx:if="{{weatherActive}}">◆</view>
+    <view class="weather-pixel pixel-c" wx:if="{{weatherActive}}">✦</view>
+    <view class="weather-icon"><image class="pixel-icon hero" src="{{weather.icon}}" mode="aspectFit"/></view>
+    <view class="weather-copy">
+      <view class="weather-label">今日财富天气</view>
+      <view class="weather-title">{{weather.title}}</view>
+      <view class="weather-text">{{weather.text}}</view>
+      <view class="weather-hint">点击感受今日天气</view>
+    </view>
+  </view>
+
+  <view class="change-card pixel-card">
+    <view>
+      <view class="change-label">今日总波动</view>
+      <view class="change-value {{summary.dailyChange >= 0 ? 'amount-positive' : 'amount-negative'}}">{{summary.changeText}}</view>
+    </view>
+    <view class="rate-box {{summary.dailyChange >= 0 ? 'up' : 'down'}}">{{summary.rateText}}</view>
+  </view>
+
+  <view class="section-title">
+    <text>每个世界发生了什么</text>
+    <text class="live">● 本地汇总</text>
+  </view>
+
+  <view class="mover-list">
+    <view
+      class="mover-row pixel-card {{activeMover === item.category ? 'active' : ''}}"
+      wx:for="{{movers}}"
+      wx:key="category"
+      data-category="{{item.category}}"
+      bindtap="inspectMover"
+    >
+      <view class="mover-icon" style="background: {{item.color}};"><image class="pixel-icon" src="{{item.icon}}" mode="aspectFit"/></view>
+      <view class="mover-main">
+        <view class="mover-title">{{item.scene}}</view>
+        <view class="mover-sub">{{item.count}} 件资产 · {{item.valueText}}</view>
+      </view>
+      <view class="mover-change {{item.dailyChange >= 0 ? 'amount-positive' : 'amount-negative'}}">{{item.changeText}}</view>
+    </view>
+  </view>
+
+  <view class="insight-card pixel-card"><image class="pixel-icon small" src="/assets/icons/action-energy.png" mode="aspectFit"/> {{insight}}</view>
+
+  <view class="section-title">
+    <text>今日冒险日志</text>
+  </view>
+  <view class="log-card pixel-card">
+    <view class="log-line">
+      <view class="log-dot green"></view>
+      <view>系统已完成全部资产的本地估值汇总。</view>
+    </view>
+    <view class="log-line">
+      <view class="log-dot gold"></view>
+      <view>自动行情 API 将在下一开发阶段接入。</view>
+    </view>
+    <view class="log-line">
+      <view class="log-dot blue"></view>
+      <view>今日波动来自资产档案；收入记录单独保存在成长页面。</view>
+    </view>
+  </view>
+</view>

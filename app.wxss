@@ -1,0 +1,106 @@
+@import "styles/buttons.wxss";
+@import "styles/theme.wxss";
+
+page {
+  --ink: #101b1d;
+  --muted: #b8c2b8;
+  --paper: #243234;
+  --cream: #2d3e3b;
+  --ground: #142125;
+  --green: #a9d68e;
+  --green-soft: #4f7456;
+  --gold: #f1cd7b;
+  --red: #f39382;
+  --blue: #6ea6a8;
+  min-height: 100%;
+  background: var(--ground);
+  color: #f1eedf;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 28rpx;
+}
+
+button {
+  font-family: inherit;
+}
+
+.page-shell {
+  min-height: 100vh;
+  padding: 28rpx 24rpx calc(100rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  animation: page-rise 280ms steps(4, end);
+}
+
+.pixel-card {
+  background: var(--paper);
+  border: 3rpx solid #586359;
+  border-radius: 6rpx;
+  box-shadow: 5rpx 5rpx 0 #0d171a;
+}
+
+.section-title {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  align-items: center;
+  justify-content: space-between;
+  margin: 34rpx 4rpx 18rpx;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.amount-positive {
+  color: var(--green);
+}
+
+.amount-negative {
+  color: var(--red);
+}
+
+.empty-state {
+  padding: 70rpx 30rpx;
+  text-align: center;
+  color: var(--muted);
+}
+
+.lifecycle-entries {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18rpx;
+  margin-top: 24rpx;
+}
+
+.lifecycle-entry {
+  position: relative;
+  padding: 24rpx;
+  background: #344035;
+}
+
+.lifecycle-entry.idle-entry { background: #2b4141; }
+.lifecycle-entry:active { transform: translate(4rpx, 4rpx); box-shadow: 2rpx 2rpx 0 var(--ink); }
+.entry-title { margin-top: 18rpx; font-size: 28rpx; font-weight: 900; }
+.entry-copy { margin-top: 10rpx; color: var(--muted); font-size: 22rpx; line-height: 1.65; }
+
+.pixel-icon {
+  display: inline-block;
+  width: 48rpx;
+  height: 48rpx;
+  vertical-align: middle;
+}
+.pixel-icon.small { width: 34rpx; height: 34rpx; }
+.pixel-icon.large { width: 76rpx; height: 76rpx; }
+.pixel-icon.hero { width: 104rpx; height: 104rpx; }
+.button-icon { width: 36rpx; height: 36rpx; margin-right: 10rpx; background: #fff4d5; border-radius: 2rpx; }
+.entry-icon { width: 64rpx; height: 64rpx; }
+.title-with-icon { display: flex; align-items: center; gap: 12rpx; }
+.row-action .pixel-icon { width: 34rpx; height: 34rpx; }
+
+@keyframes page-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,27 @@
+<view class="page-shell">
+  <view class="journey-banner pixel-card">
+    <image class="journey-banner-icon" src="/assets/icons/action-wish.png" mode="aspectFit"/>
+    <view class="journey-kicker">WISH QUEST · 愿望背包</view>
+    <view class="journey-title">这件，值得买吗？</view>
+    <view class="journey-copy">想买就问问，决定由自己。<br/>每一次拥有，都从一个小愿望开始。</view>
+    <view class="journey-actions"><button class="ui-button ui-primary" bindtap="addWish"><image class="pixel-icon button-icon" src="/assets/icons/action-add.png" mode="aspectFit"/>写下想买的</button></view>
+  </view>
+  <view class="journey-notice" wx:if="{{sharedPreview}}">你打开的是分享预览。当前版本不能读取朋友手机里的愿望或收集跨设备投票，可以先体验下方示例。</view>
+  <view class="journey-notice">本地体验版 · 示例卡的票数仅演示玩法。新建卡从 0 票开始，每台设备可选一票并改票；好友联网投票尚未开放。</view>
+  <view class="journey-stats">
+    <view class="journey-stat pixel-card"><view class="journey-stat-number">{{stats.open}}</view><view class="journey-stat-label">问问大家</view></view>
+    <view class="journey-stat pixel-card"><view class="journey-stat-number">{{stats.waiting}}</view><view class="journey-stat-label">先等等</view></view>
+    <view class="journey-stat pixel-card"><view class="journey-stat-number">{{stats.purchased}}</view><view class="journey-stat-label">变成拥有</view></view>
+  </view>
+  <scroll-view scroll-x class="journey-filters"><view wx:for="{{filters}}" wx:key="key" class="journey-chip {{filter === item.key ? 'selected' : ''}}" data-key="{{item.key}}" bindtap="selectFilter">{{item.label}}</view></scroll-view>
+  <view class="journey-list">
+    <view class="journey-card pixel-card" wx:for="{{wishes}}" wx:key="id" data-id="{{item.id}}" bindtap="openWish">
+      <view class="journey-heading"><view class="journey-icon"><image class="pixel-icon" src="{{item.icon}}" mode="aspectFit"/></view><view class="journey-main"><view class="journey-name">{{item.name}}</view><view class="journey-meta">{{item.createdAt}} · 预算 ¥{{item.budgetText}}</view></view></view>
+      <view class="journey-reason">{{item.reason}}</view>
+      <view class="journey-votes"><view wx:for="{{item.votes.options}}" wx:for-item="option" wx:key="key">{{option.short}} {{option.count}}</view></view>
+      <view class="journey-step"><view><text class="journey-tag">{{item.statusText}}</text><text class="journey-tag demo" wx:if="{{item.isDemo}}">示例</text></view><text>打开愿望卡 →</text></view>
+    </view>
+  </view>
+  <view class="empty-state" wx:if="{{wishes.length === 0}}">这里还没有愿望。想好了，就记下来吧。</view>
+  <button class="ui-button ui-secondary journey-small-button" bindtap="openIdle"><image class="pixel-icon button-icon" src="/assets/icons/action-idle.png" mode="aspectFit"/>去闲置背包，给旧物下一站 →</button>
+</view>

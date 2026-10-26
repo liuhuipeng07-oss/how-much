@@ -1,0 +1,100 @@
+<view class="page-shell">
+  <view class="section-title">
+    <view class="title-with-icon"><image class="pixel-icon" src="/assets/icons/action-income.png" mode="aspectFit"/><text>收入记录</text></view>
+    <view class="income-link title-with-icon" bindtap="addIncome"><image class="pixel-icon small" src="/assets/icons/action-add.png" mode="aspectFit"/><text>记录收入</text></view>
+  </view>
+  <view class="income-list pixel-card">
+    <view class="income-row" wx:for="{{incomes}}" wx:key="id">
+      <view>
+        <view class="income-name">{{item.name}}</view>
+        <view class="income-meta">{{item.occurredAt}} · {{item.cycleText}}</view>
+      </view>
+      <view class="income-amount">{{item.amountText}}</view>
+      <button class="ui-button ui-secondary ui-small ui-danger income-delete" data-id="{{item.id}}" catchtap="deleteIncome">删除</button>
+    </view>
+    <view class="empty-state" wx:if="{{incomes.length === 0}}">还没有收入记录。</view>
+  </view>
+
+  <view class="section-title"><text>资产历史快照</text></view>
+  <view class="snapshot-card pixel-card">
+    <view class="snapshot-chart">
+      <view class="snapshot-column" wx:for="{{snapshots}}" wx:key="date">
+        <view class="snapshot-bar" style="height: {{item.height}}%;"></view>
+        <view class="snapshot-date">{{item.dateLabel}}</view>
+      </view>
+    </view>
+    <view class="empty-state" wx:if="{{snapshots.length === 0}}">今天开始记录第一份资产快照。</view>
+  </view>
+
+  <view class="future-hero pixel-card {{portalActive ? 'portal-active' : ''}}">
+    <view class="portal-pixel portal-1" wx:if="{{portalActive}}">✦</view>
+    <view class="portal-pixel portal-2" wx:if="{{portalActive}}">◆</view>
+    <view class="portal-pixel portal-3" wx:if="{{portalActive}}">✦</view>
+    <view class="future-kicker">TIME PORTAL · {{years}} YEARS</view>
+    <view class="future-title">{{years}} 年后的你</view>
+    <view class="future-value">¥ {{finalValueText}}</view>
+    <view class="future-caption">让收入和复利，一起陪角色升级。</view>
+  </view>
+
+  <view class="section-title">
+    <text>选择一条冒险路线</text>
+  </view>
+  <view class="scenario-row">
+    <view class="scenario pixel-card {{selectedScenario === 'steady' ? 'selected' : ''}}" data-key="steady" bindtap="chooseScenario">
+      <image class="pixel-icon large" src="/assets/icons/route-steady.png" mode="aspectFit"/><text>稳稳生长</text>
+    </view>
+    <view class="scenario pixel-card {{selectedScenario === 'normal' ? 'selected' : ''}}" data-key="normal" bindtap="chooseScenario">
+      <image class="pixel-icon large" src="/assets/icons/route-normal.png" mode="aspectFit"/><text>正常航行</text>
+    </view>
+    <view class="scenario pixel-card {{selectedScenario === 'dream' ? 'selected' : ''}}" data-key="dream" bindtap="chooseScenario">
+      <image class="pixel-icon large" src="/assets/icons/route-dream.png" mode="aspectFit"/><text>梦想冲刺</text>
+    </view>
+  </view>
+  <view class="route-message">{{routeMessage}}</view>
+
+  <view class="section-title">
+    <text>未来价值曲线</text>
+  </view>
+  <scroll-view scroll-x class="chart-scroll" show-scrollbar="{{false}}">
+    <view class="future-chart">
+      <view class="future-column" wx:for="{{points}}" wx:key="year">
+        <view class="column-value" wx:if="{{item.showLabel}}">{{item.valueText}}</view>
+        <view class="future-bar" style="height: {{item.height}}%; animation-delay: {{index * 35}}ms;"></view>
+        <view class="column-year">{{item.year}}</view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="section-title">
+    <text>模拟条件</text>
+  </view>
+  <view class="control-card pixel-card">
+    <view class="control-row">
+      <view>
+        <view class="control-label">每月收入补给</view>
+        <view class="control-hint">工资、副业等可持续收入</view>
+      </view>
+      <view class="control-input-wrap">¥<input type="number" value="{{monthlyIncome}}" data-field="monthlyIncome" bindinput="bindNumber" /></view>
+    </view>
+    <view class="control-row">
+      <view>
+        <view class="control-label">预期年化增长</view>
+        <view class="control-hint">仅用于模拟，不构成建议</view>
+      </view>
+      <view class="control-input-wrap"><input type="digit" value="{{annualReturn}}" data-field="annualReturn" bindinput="bindNumber" />%</view>
+    </view>
+    <view class="control-row">
+      <view>
+        <view class="control-label">收入年增长</view>
+        <view class="control-hint">预计每年加薪或增收</view>
+      </view>
+      <view class="control-input-wrap"><input type="digit" value="{{annualIncomeGrowth}}" data-field="annualIncomeGrowth" bindinput="bindNumber" />%</view>
+    </view>
+    <view class="slider-block">
+      <view class="slider-label"><text>模拟年数</text><text>{{years}} 年</text></view>
+      <slider min="3" max="20" step="1" value="{{years}}" activeColor="#305c46" block-color="#efbd59" data-field="years" bindchange="bindNumber" />
+    </view>
+  </view>
+
+  <view class="disclaimer">预测基于用户输入的固定增长假设，仅用于统计展示和个人规划，不代表实际收益，也不执行任何交易。</view>
+</view>

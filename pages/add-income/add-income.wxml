@@ -1,0 +1,51 @@
+<view class="page-shell">
+  <view class="intro pixel-card">
+    <image class="pixel-icon large" src="/assets/icons/action-income.png" mode="aspectFit"/>
+    <view>
+      <view class="intro-title">记录收入来源</view>
+      <view class="intro-subtitle">收入用于成长统计和未来模拟，不会自动执行资金操作。</view>
+    </view>
+  </view>
+
+  <view class="form-title">收入类型</view>
+  <view class="choice-row">
+    <view
+      wx:for="{{types}}"
+      wx:key="key"
+      class="choice {{type === item.key ? 'selected' : ''}}"
+      data-key="{{item.key}}"
+      bindtap="selectType"
+    >{{item.label}}</view>
+  </view>
+
+  <view class="form-title">收入信息</view>
+  <view class="form-card pixel-card">
+    <view class="field">
+      <view class="label">名称</view>
+      <input class="input" value="{{name}}" data-field="name" bindinput="bindField" />
+    </view>
+    <view class="field">
+      <view class="label">金额（元）</view>
+      <input class="input" type="digit" placeholder="0" value="{{amount}}" data-field="amount" bindinput="bindField" />
+    </view>
+    <view class="field">
+      <view class="label">记录日期</view>
+      <picker mode="date" value="{{occurredAt}}" bindchange="bindDate">
+        <view class="input picker-value">{{occurredAt}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="form-title">统计周期</view>
+  <view class="choice-row">
+    <view
+      wx:for="{{cycles}}"
+      wx:key="key"
+      class="choice {{cycle === item.key ? 'selected' : ''}}"
+      data-key="{{item.key}}"
+      bindtap="selectCycle"
+    >{{item.label}}</view>
+  </view>
+
+  <button class="ui-button ui-primary save-button {{isSaving ? 'saving' : ''}}" disabled="{{isSaving}}" bindtap="saveIncome"><image class="pixel-icon button-icon" src="/assets/icons/action-check.png" mode="aspectFit"/>{{isSaving ? '正在保存补给…' : '保存收入记录'}}</button>
+</view>

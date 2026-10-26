@@ -1,0 +1,13 @@
+<view class="page-shell">
+  <view class="journey-banner pixel-card"><image class="journey-banner-icon" src="/assets/icons/action-wish.png" mode="aspectFit"/><view class="journey-kicker">NEW QUEST</view><view class="journey-title">想把什么带回家？</view><view class="journey-copy">一个物品、一句理由，让选择多一点乐趣。</view></view>
+  <view class="journey-form pixel-card">
+    <view class="journey-field"><view class="journey-label">想买什么 *</view><input class="journey-input" value="{{name}}" maxlength="40" placeholder="例如：周末旅行用的相机" data-field="name" bindinput="bindField"/></view>
+    <view class="journey-field"><view class="journey-label">物品分类</view><picker range="{{categories}}" range-key="label" value="{{categoryIndex}}" bindchange="selectCategory"><view class="journey-picker">{{categories[categoryIndex].label}}　⌄</view></picker></view>
+    <view class="journey-field"><view class="journey-label">准备花多少（元）*</view><input class="journey-input" type="digit" value="{{budget}}" placeholder="输入实际准备支付的金额" data-field="budget" bindinput="bindField"/></view>
+    <view class="journey-field"><view class="journey-label">为什么想买 *</view><textarea class="journey-textarea" value="{{reason}}" maxlength="300" placeholder="用来做什么？为什么现在想要？" data-field="reason" bindinput="bindField"/></view>
+    <view class="journey-field"><view class="journey-label">有没有替代品（选填）</view><textarea class="journey-textarea" value="{{alternative}}" maxlength="300" placeholder="也许手里已经有一件能用的……" data-field="alternative" bindinput="bindField"/></view>
+  </view>
+  <view class="journey-error" wx:if="{{error}}">{{error}}</view>
+  <view class="journey-actions"><button class="ui-button ui-primary" disabled="{{saving}}" bindtap="saveWish"><image class="pixel-icon button-icon" src="/assets/icons/action-wish.png" mode="aspectFit"/>{{saving ? '正在放进背包…' : '创建愿望卡'}}</button></view>
+  <view class="journey-footer">保存到本机 · 不改变资产总值<br/>多人投票将在云端版本接入</view>
+</view>

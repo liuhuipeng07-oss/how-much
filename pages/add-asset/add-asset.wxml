@@ -1,0 +1,89 @@
+<view class="page-shell add-page">
+  <view class="intro pixel-card">
+    <view class="intro-icon {{isSaving ? 'saving' : ''}}"><image class="pixel-icon large" src="{{selectedCategoryIcon}}" mode="aspectFit"/></view>
+    <view>
+      <view class="intro-title">{{isEditing ? '编辑资产档案' : '记录一件资产'}}</view>
+      <view class="intro-subtitle">这里只创建统计档案，不会产生任何买入、卖出或资金操作。</view>
+      <view class="intro-status">当前世界：{{selectedCategoryLabel}}</view>
+    </view>
+  </view>
+
+  <view class="form-title">1. 它属于哪个世界？</view>
+  <view class="category-grid">
+    <view
+      wx:for="{{categories}}"
+      wx:key="key"
+      class="category-item {{selectedCategory === item.key ? 'selected' : ''}}"
+      data-key="{{item.key}}"
+      bindtap="selectCategory"
+    >
+      <view class="category-icon"><image class="pixel-icon" src="{{item.icon}}" mode="aspectFit"/></view>
+      <view>{{item.label}}</view>
+    </view>
+  </view>
+
+  <view class="form-title">2. 写下它的价值</view>
+  <view class="form-card pixel-card">
+    <view class="field">
+      <view class="label">资产名称</view>
+      <input class="input" placeholder="例如：iPhone 17 Pro" value="{{name}}" data-field="name" bindinput="bindField" />
+    </view>
+    <view class="field">
+      <view class="label">获得成本／历史投入（元）</view>
+      <input class="input" type="digit" placeholder="0" value="{{cost}}" data-field="cost" bindinput="bindField" />
+    </view>
+    <view class="field">
+      <view class="label">开始持有日期</view>
+      <picker mode="date" value="{{acquiredAt || todayDate}}" end="{{todayDate}}" bindchange="bindAcquiredDate"><view class="input acquired-date">{{acquiredAt || '请选择开始持有日期'}}<text>选择日期 ›</text></view></picker>
+      <view class="holding-preview" wx:if="{{holding.hasHoldingDate}}"><view>已持有 {{holding.holdingDays}} 天</view><view class="holding-cost">¥{{holding.dailyCostText}} <text>/ 天</text></view><view class="holding-explanation">日均持有成本 = 获得成本 ÷ 持有天数<br/>按自然日计算，当天按 1 天计；不是收益。</view></view>
+      <view class="holding-explanation" wx:else>补充真实开始日期后计算日均持有成本；不会用档案录入时间代替。</view>
+    </view>
+    <view class="field">
+      <view class="label">{{selectedCategory === 'pet' ? '可选参考价值（元）' : '当前价值（元）'}}</view>
+      <input class="input" type="digit" placeholder="{{selectedCategory === 'pet' ? '宠物的情感价值不会被定价' : '0'}}" value="{{currentValue}}" data-field="currentValue" bindinput="bindField" />
+    </view>
+    <view class="field">
+      <view class="label">今日变化（元）</view>
+      <input class="input" type="text" maxlength="18" placeholder="上涨填正数，下跌填负数" value="{{dailyChange}}" data-field="dailyChange" bindinput="bindField" />
+    </view>
+    <view class="field">
+      <view class="label">备注</view>
+      <input class="input" placeholder="选填：型号、位置、价值来源等" value="{{note}}" data-field="note" bindinput="bindField" />
+    </view>
+  </view>
+
+  <view class="form-title">3. 价值从哪里来？</view>
+  <view class="mode-row">
+    <view class="mode-card pixel-card {{valuationMode === 'manual' ? 'active' : ''}}" data-mode="manual" bindtap="selectValuationMode">
+      <view class="mode-icon"><image class="pixel-icon" src="/assets/icons/action-edit.png" mode="aspectFit"/></view>
+      <view class="mode-title">手动估值</view>
+      <view class="mode-text">现在可用</view>
+    </view>
+    <view class="mode-card unavailable pixel-card" aria-disabled="true" data-mode="auto" bindtap="selectValuationMode">
+      <view class="mode-icon"><image class="pixel-icon" src="/assets/icons/action-energy.png" mode="aspectFit"/></view>
+      <view class="mode-title">自动行情</view>
+      <view class="mode-text">API 接入后启用</view>
+    </view>
+  </view>
+
+  <view class="equip-row pixel-card">
+    <view>
+      <view class="equip-title">显示在人物身边</view>
+      <view class="equip-text">作为角色装备或世界建筑展示</view>
+    </view>
+    <switch checked="{{visible}}" color="#305c46" bindchange="switchVisible" />
+  </view>
+
+  <view class="equip-row pixel-card">
+    <view>
+      <view class="equip-title">计入总资产价值</view>
+      <view class="equip-text">宠物、纪念品等可选择只展示而不计入金额</view>
+    </view>
+    <switch checked="{{countInTotal}}" color="#305c46" bindchange="switchCountInTotal" />
+  </view>
+
+  <button class="ui-button ui-primary save-button {{isSaving ? 'saving' : ''}}" disabled="{{isSaving}}" bindtap="saveAsset">
+    <text wx:if="{{isSaving}}">正在写入档案…</text>
+    <text wx:else>{{isEditing ? '保存资产档案' : '确认添加到我的世界'}}</text>
+  </button>
+</view>

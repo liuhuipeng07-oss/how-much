@@ -1,0 +1,58 @@
+<view class="page-shell">
+  <view class="asset-summary pixel-card">
+    <view class="summary-label">已记录的当前价值</view>
+    <view class="summary-value">¥ {{totalText}}</view>
+    <view class="summary-tip">每一件拥有，都在构成现在的你。</view>
+  </view>
+
+  <view class="lifecycle-entries">
+    <view class="lifecycle-entry pixel-card" bindtap="openWishes"><image class="pixel-icon entry-icon" src="/assets/icons/action-wish.png" mode="aspectFit"/><view class="entry-title">想买的 →</view><view class="entry-copy">放进愿望背包，先问问</view></view>
+    <view class="lifecycle-entry idle-entry pixel-card" bindtap="openIdle"><image class="pixel-icon entry-icon" src="/assets/icons/action-idle.png" mode="aspectFit"/><view class="entry-title">准备告别的 →</view><view class="entry-copy">从已有资产整理闲置</view></view>
+  </view>
+  <view class="record-tabs">
+    <view class="record-tab {{recordState === 'active' ? 'active' : ''}}" data-state="active" bindtap="selectRecordState">当前资产</view>
+    <view class="record-tab {{recordState === 'archived' ? 'active' : ''}}" data-state="archived" bindtap="selectRecordState">已归档</view>
+  </view>
+
+  <scroll-view scroll-x class="filter-scroll" show-scrollbar="{{false}}">
+    <view class="filter-list">
+      <view
+        wx:for="{{filters}}"
+        wx:key="key"
+        class="filter-chip {{activeFilter === item.key ? 'active' : ''}}"
+        data-key="{{item.key}}"
+        data-label="{{item.label}}"
+        bindtap="selectFilter"
+      >{{item.label}}</view>
+    </view>
+  </scroll-view>
+
+  <view class="asset-feedback" wx:if="{{feedback}}">✦ {{feedback}}</view>
+
+  <view class="asset-list">
+    <view class="asset-row pixel-card {{activeAssetId === item.id ? 'equipment-flash' : ''}}" wx:for="{{filteredAssets}}" wx:key="id">
+      <view
+        class="asset-icon {{item.visible ? 'equipped' : ''}}"
+        data-id="{{item.id}}"
+        catchtap="toggleEquipment"
+      >
+        <image class="pixel-icon" src="{{item.icon}}" mode="aspectFit"/>
+        <view class="equip-mark">{{item.archived ? '已归档' : item.visible ? '装备中' : '点此装备'}}</view>
+      </view>
+      <view class="asset-main" data-id="{{item.id}}" bindtap="editAsset">
+        <view class="asset-name">{{item.name}}</view>
+        <view class="asset-meta">{{item.categoryLabel}} · {{item.countInTotal === false ? '不计入总值' : '计入总值'}} · {{item.visible ? '人物展示' : '仅统计'}}</view>
+      </view>
+      <view class="asset-price" data-id="{{item.id}}" bindtap="editAsset">
+        <view class="asset-value">{{item.valueText}}</view>
+        <view class="{{item.dailyChange >= 0 ? 'amount-positive' : 'amount-negative'}}">{{item.changeText}}</view>
+      </view>
+      <button wx:if="{{recordState === 'active'}}" class="ui-button ui-secondary ui-icon row-action archive" aria-label="归档资产" data-id="{{item.id}}" catchtap="archiveAsset"><image class="pixel-icon" src="/assets/icons/action-archive.png" mode="aspectFit"/></button>
+      <button wx:else class="ui-button ui-secondary ui-icon row-action restore" aria-label="恢复资产" data-id="{{item.id}}" catchtap="restoreAsset"><image class="pixel-icon" src="/assets/icons/action-restore.png" mode="aspectFit"/></button>
+      <view class="asset-holding" data-id="{{item.id}}" bindtap="editAsset"><text wx:if="{{item.hasHoldingDate}}">开始于 {{item.acquiredAt}} · 截至今天 {{item.holdingDays}} 天</text><text wx:else>补充开始持有日期 ›</text><text class="holding-amount" wx:if="{{item.hasHoldingDate}}">¥{{item.dailyCostText}} / 天</text></view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{filteredAssets.length === 0}}">{{recordState === 'active' ? '这个区域还是空地，去放入第一件资产吧。' : '暂无已归档的资产档案。'}}</view>
+  <button wx:if="{{recordState === 'active'}}" class="ui-button ui-primary bottom-action" bindtap="addAsset"><image class="pixel-icon button-icon" src="/assets/icons/action-add.png" mode="aspectFit"/>添加一件新资产</button>
+</view>
